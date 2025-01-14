@@ -1,0 +1,19 @@
+name: Generate String
+inputs: 
+  string: 
+    description: 'String to generate'
+    required: true
+    default: 'Default Hello, World!'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate File
+      id: generateFile
+      run: echo "${{inputs.string}}" >> $GITHUB_WORKSPACE/hello.txt
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifact
+        path: $GITHUB_WORKSPACE/hello.txt
