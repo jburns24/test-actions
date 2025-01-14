@@ -28,6 +28,7 @@ jobs:
       - id: generateOutput
         run: echo "helloWorld=Hello, World!" >> $GITHUB_OUTPUT
   matrix-job:
+    needs: output-job
     runs-on: ubuntu-latest
     strategy:
       matrix:
