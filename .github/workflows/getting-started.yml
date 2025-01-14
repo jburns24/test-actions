@@ -30,19 +30,19 @@ jobs:
           name: artifact
       - name: See contents of GITHUB_WORKSPACE
         run: ls -l $GITHUB_WORKSPACE
-  output-job:
-    runs-on: ubuntu-latest
-    outputs:
-      helloWorld: ${{ steps.generateOutput.outputs.helloWorld }}
-    steps:
-      - id: generateOutput
-        run: echo "helloWorld=Hello, World!" >> $GITHUB_OUTPUT
+  # output-job:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     helloWorld: ${{ steps.generateOutput.outputs.helloWorld }}
+  #   steps:
+  #     - id: generateOutput
+  #       run: echo "helloWorld=Hello, World!" >> $GITHUB_OUTPUT
   matrix-job:
-    needs: output-job
+    needs: simple
     runs-on: ubuntu-latest
     strategy:
       matrix:
         numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     steps:
       - name: Run a one-line script
-        run: echo ${{ needs.output-job.outputs.helloWorld }}-${{ matrix.numbers }}
+        run: echo $(cat $GITHUB_WORKSPACE/artifact.txt)-${{ matrix.numbers }}
