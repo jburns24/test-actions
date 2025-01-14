@@ -6,10 +6,7 @@ on:
     branches: [ main ]
 
 jobs:
-  ci:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Call reusalbe workflow
-        uses: jburns24/test-actions/.github/workflows/getting-started.yml@main
-        with:
-          input-string: 'Input from caller workflow'
+  calls-reusable:
+    uses: jburns24/test-actions/.github/workflows/getting-started.yml@main
+    with:
+      input-string: 'Input from caller workflow'
