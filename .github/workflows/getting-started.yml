@@ -32,6 +32,7 @@ jobs:
       - name: See output from artifact
         run: cat hello.txt 
       - name: Set output from artifact
+        id: generateOutput
         run: echo "helloWorld=$(cat hello.txt)" >> $GITHUB_OUTPUT
   matrix-job:
     needs: simple
