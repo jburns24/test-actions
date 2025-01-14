@@ -12,11 +12,11 @@ runs:
     - name: Generate File
       shell: bash
       id: generateFile
-      run: echo "${{inputs.string}}" >> $GITHUB_WORKSPACE/hello.txt
+      run: echo "${{inputs.string}}" >> hello.txt
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: artifact
-        path: $GITHUB_WORKSPACE/hello.txt
+        path: ./hello.txt
 
