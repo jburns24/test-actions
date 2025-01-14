@@ -25,6 +25,8 @@ jobs:
         uses: jburns24/test-actions@main
         with:
           string: 'Passed in value'
+          # Passing in the secret here was causing the matirx to output nothing presumably a security trait so you cannot hijack the secret
+          # string: 'Passed in value ${{ secrets.PASSWORD }}'
       - name: Get Artifact
         uses: actions/download-artifact@v4
         with:
