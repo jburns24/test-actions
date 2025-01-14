@@ -18,8 +18,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Run a one-line script
-        run: echo ${{ secrets.PASSWORD }}
+      - name: Generate outputs
+        uses: actions/checkouts@v4
+      - name: Generate Artifact
+        uses: ./.github/composite-action.yml
+        with:
+          string: 'Passed in value ${{ secrets.PASSWORD }}'
+      - name: Get Artifact
+        uses: actions/download-artifact@4
+        with:
+          name: artifact
+      - name: See contents of GITHUB_WORKSPACE
+        run: ls -l $GITHUB_WORKSPACE
   output-job:
     runs-on: ubuntu-latest
     outputs:
