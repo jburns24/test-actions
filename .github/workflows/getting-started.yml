@@ -23,10 +23,10 @@ jobs:
   output-job:
     runs-on: ubuntu-latest
     outputs:
-      string: ${{ steps.generateOutput.outputs.string }}
+      helloWorld: ${{ steps.generateOutput.outputs.helloWorld }}
     steps:
       - id: generateOutput
-        run: echo "string=Hello, World!" >> $GITHUB_ENV
+        run: echo "helloWorld=Hello, World!" >> $GITHUB_ENV
   matrix-job:
     runs-on: ubuntu-latest
     strategy:
@@ -34,4 +34,4 @@ jobs:
         numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     steps:
       - name: Run a one-line script
-        run: echo ${{ needs.output-job.outputs.string }}-${{ matrix.numbers }}
+        run: echo ${{ needs.output-job.outputs.helloWorld }}-${{ matrix.numbers }}
