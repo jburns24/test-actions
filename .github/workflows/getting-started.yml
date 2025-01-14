@@ -26,7 +26,7 @@ jobs:
       helloWorld: ${{ steps.generateOutput.outputs.helloWorld }}
     steps:
       - id: generateOutput
-        run: echo "helloWorld=Hello, World!" >> $GITHUB_ENV
+        run: echo "helloWorld=Hello, World!" >> $GITHUB_OUTPUT
   matrix-job:
     runs-on: ubuntu-latest
     strategy:
