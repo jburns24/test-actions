@@ -18,10 +18,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Generate outputs
-        uses: actions/checkout@v4
+      # - name: generate outputs
+      #   uses: actions/checkout@v4
       - name: Generate Artifact
-        uses: ./.github/composite-action.yml
+        uses: jburns24/test-actions@main
         with:
           string: 'Passed in value ${{ secrets.PASSWORD }}'
       - name: Get Artifact
