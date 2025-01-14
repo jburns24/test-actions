@@ -15,7 +15,8 @@ jobs:
   simple:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    outputs:
+      helloWorld: ${{ steps.generateOutput.outputs.helloWorld }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # - name: generate outputs
@@ -28,15 +29,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: artifact
-      - name: See contents of GITHUB_WORKSPACE
-        run: ls -l $GITHUB_WORKSPACE
-  # output-job:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     helloWorld: ${{ steps.generateOutput.outputs.helloWorld }}
-  #   steps:
-  #     - id: generateOutput
-  #       run: echo "helloWorld=Hello, World!" >> $GITHUB_OUTPUT
+      - name: Set output from artifact
+        run: echo "helloWorld=$(cat hello.txt)" >> $GITHUB_OUTPUT
   matrix-job:
     needs: simple
     runs-on: ubuntu-latest
@@ -44,5 +38,8 @@ jobs:
       matrix:
         numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     steps:
-      - name: Run a one-line script
-        run: echo $(cat $GITHUB_WORKSPACE/artifact.txt)-${{ matrix.numbers }}
+      - name: Cat the artifact
+        run: echo $(cat $GITHUB_WORKSPACE/hello.txt)-${{ matrix.numbers }}
+      - name: Cat the outputs
+        run: echo ${{ needs.simple.outputs.helloWorld }}-${{ matrix.numbers }}
+      
